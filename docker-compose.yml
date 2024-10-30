@@ -17,5 +17,6 @@ services:
         volumes:
         - '${APP}:${EAPP}'
         - '${DATA}:${EDATA}'
+        #command: python pipeline.py
         command: python experiment_synclass.py
 
