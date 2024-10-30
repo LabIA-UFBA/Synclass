@@ -103,7 +103,7 @@ def pre_processing_loan(df):
     scaler = MinMaxScaler()
     x = scaler.fit_transform(x)
 
-    return x,y,df
+    return x, y, df
 
 if __name__ == '__main__':
     ITERS = 1
@@ -114,7 +114,7 @@ if __name__ == '__main__':
             "experiment_name": "Synclass_Hemophilia_A-FVIII",
             "dataset_info": {
                 "dsetname" : "hemophilia-A-FVIII",
-                "dataset_path": "./hemo_synclass/",
+                "dataset_path": "data/datasets/A-FVIII/",
                 "dataset_sep": ",",
             },
             "pre_processing_func":pre_processing_hemoA
@@ -124,7 +124,7 @@ if __name__ == '__main__':
             "experiment_name": "Synclass_Hem_RIN2r7e",
             "dataset_info":{
                 "dsetname": "RIN-2R7E-label",
-                "dataset_path": "./hemo_synclass/",
+                "dataset_path": "data/datasets/FV-VIII-RIN/",
                 "dataset_sep":',',
                 
             },
@@ -134,7 +134,7 @@ if __name__ == '__main__':
         {
             "experiment_name": "Synclass_Hemo_B",
             "dataset_info":{
-                "dsetname": "HemB_Dataset_SENAI_v5a",
+                "dataset_path": "data/datasets/hemophilia-b/",
                 "dataset_sep":'\t',
                 
             },
@@ -147,7 +147,7 @@ if __name__ == '__main__':
         log.info(f'Experiment {experiment_info["experiment_name"]}')
         log.info('-' * 30)
 
-        for test_size in [0.1,0.15,0.2,0.25]:
+        for test_size in [0.1]:#,0.15,0.2,0.25]:
 
         
             run_synclass_pipeline(test_size, experiment_info,NUM_ITER=ITERS, folder=f'synclass/{experiment_info["experiment_name"]}')

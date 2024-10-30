@@ -1,0 +1,2 @@
+model_name,iteration,F1,ROC,IOU,FMI,MCC,SEN,SPE
+"['LocalOutlierFactor', 'LocalOutlierFactor', 'LocalOutlierFactor', 'LocalOutlierFactor', 'LocalOutlierFactor', 'LocalOutlierFactor', 'LocalOutlierFactor', 'LocalOutlierFactor', 'LocalOutlierFactor']",0,0.62702,0.6333333333333333,0.4806222222222223,0.5053122222222223,0.27125,0.6,0.6666666666666667

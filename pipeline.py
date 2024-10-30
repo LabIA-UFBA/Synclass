@@ -73,7 +73,7 @@ def run_all_pipeline_under_smote_techiques(experiment_info,folder,test_size=0.2)
     os.makedirs(f'out/{folder}/Raw_Results',exist_ok=True)
 
     full_path = experiment_info["dataset_info"]["dataset_path"] +experiment_info["dataset_info"]["dsetname"] + '.csv'
-    dataset = pd.read_csv(full_path,sep = experiment_info["dataset_info"]["dataset_sep"])
+    dataset = pd.read_csv(full_path, sep = experiment_info["dataset_info"]["dataset_sep"])
     
     x,y,dataset = experiment_info["pre_processing_func"](dataset)
     # x = x.to_numpy()
@@ -271,38 +271,6 @@ def run_all_pipeline_under_smote_techiques(experiment_info,folder,test_size=0.2)
                 results['acc-class-2'].append(acc_class_2)
                 log.info(f'Stacking .....................: {f1}')
 
-                # y_pred,y_pred_proba,model_cv = RSSVM(x_train, y_train, x_test, y_test)
-                # sen, spe, f1, roc, jac, fmi, mcc = computer_scores(y_test, y_pred)
-                # results['scaling_method'].append(scaling)
-                # results['iteration'].append(i)
-                #results['fold'].append(j)
-                # results['oversampling_technique'].append(oversampling_technique)
-                # results['model_name'].append('SVM')
-                # results['F1'].append(f1)
-                # results['ROC'].append(roc)
-                # results['IOU'].append(jac)
-                # results['FMI'].append(fmi)
-                # results['MCC'].append(mcc)
-                # results['SEN'].append(sen)
-                # results['SPE'].append(spe)
-                # log.info(f'SVM ....................: {f1}')
-
-                # y_pred,y_pred_proba,model_cv = SVM_class_weight(x_train, y_train, x_test, y_test,n_jobs=N_JOBS)
-                # sen, spe, f1, roc, jac, fmi, mcc = computer_scores(y_test, y_pred)
-                # results['scaling_method'].append(scaling)
-                # results['iteration'].append(i)
-                # results['fold'].append(j)
-                # results['oversampling_technique'].append(oversampling_technique)
-                # results['model_name'].append('SVM-weight')
-                # results['F1'].append(f1)
-                # results['ROC'].append(roc)
-                # results['IOU'].append(jac)
-                # results['FMI'].append(fmi)
-                # results['MCC'].append(mcc)
-                # results['SEN'].append(sen)
-                # results['SPE'].append(spe)
-                # log.info(f'SVM Weight..............: {f1}')
-                
                 
                 seconds_j = (time.time()- ini_j)
                 minutes_j = round(seconds_j / 60, 2)
@@ -327,13 +295,19 @@ def run_all_pipeline_under_smote_techiques(experiment_info,folder,test_size=0.2)
 
 
 if __name__ == '__main__':
+    
+    log.info(f" Machine Learning Pipeline...")
+
+    log.debug(f"dir: {os.getcwd()}")
+    log.debug(f"Files: {os.listdir(os.getcwd())}")
+
     ini = time.time()
     experiments = [
         {
             "experiment_name": "Pipeline_Hemophilia_A-FVIII",
             "dataset_info": {
                 "dsetname" : "hemophilia-A-FVIII",
-                "dataset_path": "./hemo_synclass/",
+                "dataset_path": "data/datasets/A-FVIII/",
                 "dataset_sep": ",",
             },
             "pre_processing_func":pre_processing_hemoA
@@ -343,7 +317,7 @@ if __name__ == '__main__':
             "experiment_name": "Pipeline_Hem_RIN2r7e",
             "dataset_info":{
                 "dsetname": "RIN-2R7E-label",
-                "dataset_path": "./hemo_synclass/",
+                "dataset_path": "data/datasets/FV-VIII-RIN/",
                 "dataset_sep":',',
                 
             },
@@ -354,22 +328,23 @@ if __name__ == '__main__':
             "experiment_name": "Pipeline_Hemo_B",
             "dataset_info":{
                 "dsetname": "HemB_Dataset_SENAI_v5a",
-                "dataset_path": "./hemo_synclass/",
+                "dataset_path": "data/datasets/hemophilia-b/",
                 "dataset_sep":'\t',
-                
             },
             "pre_processing_func":pre_processing_hemoB
         }
     ]
 
     for experiment_info in experiments:
-      
+        
         log.info('-' * 30)
         log.info(f'Experiment {experiment_info["experiment_name"]}')
         log.info('-' * 30)
-        percentage = [0.1,0.15,0.2,0.25]
-        for test_size in [0.1,0.15,0.2,0.25]:
-            run_all_pipeline_under_smote_techiques(experiment_info,folder=f'pipeline_undersampling/{experiment_info["experiment_name"]}', test_size = test_size)
+        percentage = [0.1]#,0.15,0.2,0.25]
+        for test_size in [0.1]:#,0.15,0.2,0.25]:
+            run_all_pipeline_under_smote_techiques(experiment_info, 
+                                                   folder=f'pipeline_undersampling/{experiment_info["experiment_name"]}', 
+                                                   test_size = test_size)
 
 
     seconds = (time.time()- ini)
